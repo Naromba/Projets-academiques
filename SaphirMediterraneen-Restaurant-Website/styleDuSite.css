@@ -1,0 +1,734 @@
+@media (max-width:600px){
+    
+    #logo a{
+        width: 250px;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+
+    nav li{
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav li a{
+        
+        height: 50px;
+        text-align: center;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        font-size: x-large;
+        text-decoration: none;
+        color: rgb(112, 80, 80);
+        
+    }
+    
+    h1{
+        text-align: center;
+    }
+    h1 span {
+        display: block;
+        text-align: center;
+    }
+    
+    #mainText {
+        
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: center;      
+        align-items: center;
+        text-align: justify;
+        
+    }
+
+    #menuButton {
+        font-size: 20px; 
+        margin: auto; 
+        border-radius: 10px; 
+        width: 200px;
+        height: 40px;
+    }
+   
+    #presImage {
+        width: 60%;
+        height: 400px;
+        margin: 20px auto;
+        display: flex;
+        align-content: center;
+        border-radius: 4%;
+    }
+
+    #interior{
+        width: 60%;
+        height: 400px;
+        margin: 30px auto;
+        display: flex;
+        align-content: center;
+        border-radius: 4%;       
+    }
+    #brevePres{
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: center;      
+        align-items: center;
+        text-align: justify;
+    }
+    #horraire{
+        
+        width: 80%;
+        margin: 30px auto;
+        display: block;
+        justify-content: center;      
+        align-items: center;
+        text-align: justify;
+        
+    }
+
+    #contactUs{
+        width: 80%;
+        margin: auto;
+    }
+
+    #fLogo {
+        flex: 1;
+        order: 3;
+        text-align: right;
+        margin-top: -110px;
+    }
+    #fLogo img{
+        
+        width: 140px;
+        height: 140px;
+        
+    }
+
+    /*ICIIII*/
+    article h3, article figure, article p, article span {
+        margin: 10px;
+        flex: 1 1 200px; /* Adaptatif, mais pas plus petit que 200px */
+    }
+   
+}
+
+/*################################## tablet ####################################*/
+
+@media (min-width:600px) and (max-width:1100px){
+
+    #logo img {
+        width: 250px;
+    }
+
+    nav li{
+        display: flex;
+        flex-direction: column;
+        margin-top: -240px;
+        margin-left: 50%;       
+    }
+
+    nav li a{
+        xborder: 2px solid black;
+        width: 200px;
+        height: 50px;
+        text-align: center;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        font-size: x-large;
+        text-decoration: none;
+        color: rgb(112, 80, 80);
+        
+    }
+    
+
+    #row1 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        
+    }
+    h1 {
+        xborder: 2px solid black;
+        text-align: center;
+        margin-top: 50px;
+        font-size: 40px;
+        margin-left: 8%;
+    }
+    h1 span {
+        display: block;
+        justify-content: center;
+        margin: auto;
+        font-size: 50px;
+    }
+
+    #menuButton {
+        margin-top: 50px;
+        width: 200px;
+        height: 100px;
+        border-radius: 20px;
+        font-size: 25px;
+    }
+    #row2 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    #presImage {
+        width: auto;
+        height: 400px;
+        border-radius: 4%;
+        margin-left: 7%;
+    }
+
+    #mainText {
+        xborder: 2px solid black;
+        width: 40%;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        
+    }
+
+    #mainText p{
+
+        text-align: justify;
+        padding-top: 60px;
+        
+    }
+
+    #row3 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 60px;
+    }
+
+    #brevePres {
+        xborder: 2px solid black;
+        width: 40%;
+        height: 400px;
+        margin-left: 0%;
+    }
+
+    #brevePres p {
+        text-align: justify;
+        padding-top: 60px;
+    }
+
+    #interior{
+        order: 2;
+        width: 30%;
+        min-width: 260px;
+        height: 400px;
+        justify-content: end;
+        
+        height: auto;
+        border-radius: 4%;     
+
+    }
+    #row4 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 60px;
+    }
+    #horraire {
+        width: 33%;
+        min-width: 300px;
+        margin-left: 5%;
+    }
+
+    #reserve {
+        xborder: 2px solid black;
+        width: 40%;
+    }
+
+    #reserve h3, button{
+        margin: 50px auto;
+        justify-content: center;
+    }
+    
+
+    #contactUs{
+        
+        width: 80%;
+        justify-content: center;
+        margin-top: 20px;
+        margin-left: 12%;   
+
+    }
+
+    /*ICIIII*/
+    article {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    article figure {
+        text-align: center; /* Centre le contenu à l'intérieur de la figure */
+    }
+
+    article figcaption,
+    article p,
+    article span {
+        text-align: center;
+        margin: 5px 0;
+    }
+    .div {
+        display: grid;
+        grid-template-areas: "h2 img"
+                             "p img";
+        gap: 20px;
+        padding: 20px;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+
+
+}
+
+/*################################## desktop ####################################*/
+
+@media (min-width:1100px){
+
+    #logo img{
+        width: 250px;
+    }
+
+    nav li{
+        
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        position: absolute;
+        margin: -30px auto;
+        margin-left: 30%;
+        margin-top: -150px;
+        list-style-type: none;
+    }
+
+    nav li a{
+        
+        margin: 0px auto;
+        padding-top: 10px;
+        text-decoration: none;
+        width: 200px;
+        height: 50px;
+        text-align: center;
+        align-items: center;
+        font-family: Comic Sans MS, Comic Sans, cursive;
+        font-size: x-large;
+        text-decoration: none;
+        color: rgb(112, 80, 80);
+        
+    }
+
+
+    h1, #menuButton {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 5%;
+        
+    }
+
+
+    h1{
+        xdisplay: block;
+        xborder: 2px solid black;
+        width: 22%;
+        float: right;
+        height: 95px;
+        margin-right: 17%;
+        font-size: 40px;
+    }
+    
+    span{
+        display: block;
+        xborder: 2px solid black;
+        xpadding-top: 50px;
+        xtext-align: center;
+        text-align: center;
+        
+    }
+
+    #menuButton{
+        xborder: 2px solid black;
+        font-size: 20px; 
+        margin: 18% auto ;
+        margin-left: 63%; 
+        border-radius: 10px; 
+        width: 200px;
+        height: 40px;
+        float: right;
+        position: absolute;
+
+    }
+
+    #presImage {
+        xorder: -1;
+        width: 500px;
+        height: 600px;
+        border-radius: 4%;
+        xmargin-left: 7%;
+        margin-left: 7%;
+        margin-top: 5%;
+    }
+
+    #mainText {
+        xborder: 2px solid black;
+        width: 40%;
+        xmin-width: 300px;
+        height: auto;
+        float: right;
+        margin-top: -300px;
+        margin-right: 5%;
+        
+    }
+
+    #mainText p{
+        xborder: 2px solid black;
+        text-align: justify;
+        padding-top: 0px;
+        font-size: 25px;
+        
+    }
+
+
+    #row3 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 60px;
+        xmargin-left: -7%;
+    }
+
+    #interior{
+        width: 500px;
+        height: 600px;
+        border-radius: 4%;
+        margin-top: 5%;
+        order: 2; 
+    }
+    #brevePres {
+        width: 40%;
+        height: auto;
+        margin-left: 0px;
+        order: -1;
+        
+    }
+
+    #brevePres p {
+        text-align: justify;
+        padding-top: 180px;
+        font-size: 25px;
+    }
+
+
+    #row4{
+        xborder: 2px solid black;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        xmargin-top: 60px;
+        width: 80%;
+        justify-content: center;
+        margin: 70px auto;
+    }   
+    #horraire{
+        width: 50%;
+    }
+
+    #reserve{
+        width: 40%;
+        margin-top: 5% ;
+        margin-left: 5%;
+        
+        
+    }
+
+    #contactUs{
+        
+        width: 80%;
+        justify-content: center;
+        margin-top: 20px;
+        margin-left: 12%;   
+
+    }
+    /*ICIIII*/
+    article h3, article figure, article p, article span {
+        margin: 10px;
+        flex: 1 1 200px; 
+    }
+    .para {
+        margin-left: 26px; /* Vous pouvez ajuster la valeur selon vos besoins pour ajouter plus d'espace */
+    }
+    .div {
+        display: grid;
+        grid-template-areas: "h2 img"
+                             "p img";
+        gap: 20px;
+        padding: 20px;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  
+   
+
+
+
+
+
+}
+
+body{
+    background-color: #f0f5f5 ;
+    margin: 0;
+}
+
+nav{
+
+    background-color: rgba(245, 245, 220, 0.738);
+        
+}
+
+nav li a:hover{
+    background-color: rgba(231, 231, 231, 0.616);
+    border-radius: 10px;
+}
+
+#mainText{
+    
+    font-family: Trebuchet MS, sans-serif;
+    font-size: large;
+    color: rgb(109, 109, 109); /* couleur du font */
+    
+}
+h1{
+    font-family: Brush Script MT, Brush Script Std, cursive;
+    
+    
+}
+h1 span{
+    color: #556B2F; /* la couleur de personalite du restaurant*/
+    
+}
+#brevePres {
+    font-family: Trebuchet MS, sans-serif;
+    font-size: large;
+    color: rgb(109, 109, 109);
+}
+#menuButton {
+    background-color: #556B2F; 
+    color: white; 
+    font-family: Trebuchet MS, sans-serif;
+    text-decoration: none; 
+    border: none; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+#menuButton:hover {
+    background-color: gray;
+}
+#horraire{
+    font-family: Trebuchet MS, sans-serif;
+    
+}
+#horraire caption{
+    color: #556B2F;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+#horraire table {
+    width: 100%;
+    
+    padding-top: 15px;
+    text-align: left;
+    border-spacing: 0;
+    
+    
+}
+#horraire table tr{
+    border: 1px solid black;
+    
+}
+#horraire table tr:nth-of-type(even){
+    background-color: #ADC66A;
+    color: black;
+}
+#horraire table tr:nth-of-type(odd){
+    background-color: #DFEAC1;
+    color: black;
+}
+#horraire th{
+    width: 60%;
+}
+
+#horraire td{
+    text-align: center;
+}
+
+h2 {
+    font-family: Trebuchet MS, sans-serif;
+    color: #556B2F;
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+}
+
+h3{
+    font-family: Trebuchet MS, sans-serif;
+    width: 80%;
+    color: black;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    margin: auto;
+    
+}
+
+#contactUs form{
+    display: flex;
+    flex-direction: column;
+}
+
+#sendButton:hover {
+    background-color: gray;
+}
+
+#reserveButton:hover {
+    background-color: gray;
+}
+#reserveButton, #sendButton{
+    background-color: #556B2F; 
+    color: white; 
+    font-family: Trebuchet MS, sans-serif;
+    text-decoration: none; 
+    border: none; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 20px; 
+    margin: 30px auto; 
+    border-radius: 10px; 
+    width: 200px;
+    height: 40px;
+}
+
+/*#### footer ####*/
+footer{
+    background-color: rgba(245, 245, 220, 0.738);
+    xdisplay: block;
+    xalign-items: center;
+    xjustify-content: space-between;
+    
+    
+}
+#fNav {
+    xborder: 2px solid black;
+    flex: 1;
+    order: 1;
+    width: 100px;
+    padding-top: 20px;
+    margin-left: 20px;
+}
+#fNav a{
+    xborder: 2px solid black;
+    display: block;
+    width: 100px;
+    text-decoration: none;
+    font-family: Trebuchet MS, sans-serif;
+    color: rgb(112, 80, 80);
+}
+#fLogo {
+    flex: 1;
+    order: 3;
+    text-align: right;
+}
+#fLogo img{
+    xborder: 2px solid black;
+    width: 140px;
+    height: 140px;
+
+}
+#fLogo{
+    margin-top: -110px;
+    margin-right: 20px;
+}
+
+#fCopy{
+
+    flex: 0 0 100%; 
+    order: 2;
+    text-align:center;
+    margin-top: 20px;
+   
+}
+/* STYLE MENU*/
+section {
+    padding: 20px;
+}
+
+article {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+   
+}
+
+
+
+figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+figure div {
+    width: 100%;
+    height: 100px;
+    background-color: #ddd;
+}
+
+figcaption {
+    font-style: italic;
+    color: #555;
+}
+figure img {
+    width: 200px; /* Définissez la largeur souhaitée */
+    height: 150px; /* Définissez la hauteur souhaitée */
+    object-fit: cover; /* Ajustez la propriété object-fit selon vos besoins */
+}
+
+
+.div p {
+    font-family: Trebuchet MS, sans-serif;
+}
+.img{
+    width: 200px;
+    height: 300px;
+    border-radius: 5%;
+
+}

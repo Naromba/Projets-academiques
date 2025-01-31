@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>home&VerticalSeparator;Saphir Méditerranéen</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="styleDuSite.css">
+
+    </head>
+
+    <body>
+        <script src="functions.js"></script>
+        <nav>
+            <div id="logo">
+                <a href="home.html"><img src="Images/LogoGOFi.png" alt="logo" ></a>
+            </div>
+            <div>
+                <li>
+                    <a href="home.html">Accueil</a>
+                    <a href="menu.html">Menu</a>
+                    <a href="design.html">Design</a>
+                    <a href="booking.html">Réservation</a>
+                    <a href="aPropos.html">À propos</a>
+                </li>
+            </div>
+        </nav>
+        
+        <main>
+            <div id="row1">
+                <h1>Restaurant <span> Saphir Méditerranéen </span> </h1>
+                <button id="menuButton">Menu</button>
+            </div>
+            <div id="row2">
+                <img id="presImage" src="Images/nouilles.jpg" alt="nouilles">
+                <div id="mainText">
+                    
+                    <p>
+                        Bienvenue au Saphir Méditerranéen, votre destination pour des plats exquis et innovants. 
+                        Nous combinons des ingrédients frais et de qualité avec une passion pour la cuisine Méditerranéen pour 
+                        offrir une expérience culinaire mémorable. Rejoignez-nous pour un voyage gastronomique dans une ambiance chaleureuse 
+                        et conviviale
+                    </p>
+                </div>
+            </div>
+            
+           
+            <div id="row3">
+                <img id="interior" src="Images/interior.jpg" alt="interieur ">
+    
+                <div id="brevePres">
+                    <p>Le "Saphir Méditerranéen" se distingue par un design élégant qui fusionne modernité et charme méditerranéen. 
+                        Des nuances de bleu saphir et des touches terreuses créent une atmosphère raffinée et accueillante. Chaque élément, 
+                        des éclairages sophistiqués aux décorations artistiques, contribue à une expérience culinaire à la fois intime et luxueuse.</p>
+                    
+                </div>
+
+            </div>
+            
+            
+            <div id="row4">
+                <div id="horraire">
+                    <table>
+                        <caption>Horraires d'ouvertures:</caption>
+                        <tr>
+                            <th>Lundi:</th>
+                            <td>11:00h - 22:00h</td>
+                        </tr>
+                        <tr>
+                            <th>Mardi:</th>
+                            <td>11:00h - 22:00h</td>
+                        </tr>
+                        <tr>
+                            <th>Mercredi:</th>
+                            <td>11:00h - 22:00h</td>
+                        </tr>
+                        <tr>
+                            <th>Jeudi:</th>
+                            <td>11:00h - 22:00h</td>
+                        </tr>
+                        <tr>
+                            <th>Vendredi:</th>
+                            <td>11:00h - 02:00h</td>
+                        </tr>
+                        <tr>
+                            <th>Samedi:</th>
+                            <td>11:00h - 02:00h</td>
+                        </tr>
+                        <tr>
+                            <th>Dimanche:</th>
+                            <td>11:00h - 22:00h</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="reserve">
+                    <h3>Pour une réservation, veuillez cliquer sur le bouton ci-dessous</h3>
+                    <button id="reserveButton">Reservation</button>
+                </div>
+            </div>
+            
+            <div id="contactUs">
+                <h2>Contactez-nous:</h2>
+                <form method="post" action="">
+                    <label for="Name">Nom: </label>
+                    <input type="text" name="Name" id="Name" required>
+                    <label for="Prenom">Prénom: </label>
+                    <input type="text" name="Prenom" id="Prenom" required>
+                    <label for="E-mail">E-mail: </label>
+                    <input type="text" name="E-mail" id="E-mail" required>
+                    <label for="myComments">Commentaires:</label>
+                    <textarea name="myComments" id="myComments" rows="5" cols="20" placeholder="Veuillez-entrez vos commentaires ici!"></textarea>
+                    <button type="submit" id="sendButton" onclick="popUp()">Envoyer</button>
+                </form>
+            </div>
+
+        </main>
+            
+
+        
+        
+        <footer>
+            <div id="fNav">
+                <a href="home.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="design.html">Design</a>
+                <a href="booking.html">Reservation</a>
+                <a href="aPropos.html">À propos</a>
+            </div>
+            <div id="fLogo">
+                <img src="Images/LogoGOFi.png" alt="logo" >
+            </div>
+            <div id="fCopy">
+                <small> <i>Copyright &copy; 2023 Saphir Méditerranéen <br>
+                    <a href="mailto:contact@saphirmediterraneen.com">contact@saphirmediterraneen.com</a>
+                </i>  </small>
+            </div>
+            
+        </footer>
+    </body>
+</html>

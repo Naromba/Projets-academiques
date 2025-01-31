@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reservation&VerticalSeparator;Saphir Méditerranéen</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="styleDuSite.css">
+    </head>
+    <body>
+        <script src="functions.js"></script>
+        <nav>
+            <div id="logo">
+                <a href="home.html"><img src="Images/LogoGOFi.png" alt="logo" ></a>
+            </div>
+            <div>
+                <li>
+                    <a href="home.html">Accueil</a>
+                    <a href="menu.html">Menu</a>
+                    <a href="design.html">Design</a>
+                    <a href="booking.html">Réservation</a>
+                    <a href="aPropos.html">À propos</a>
+                </li>
+            </div>
+        </nav>
+
+        <h1>Reservation</h1>
+
+        <form method="post" action="">
+            <label for="myName">Nom:</label>
+            <input type="text" name="myName" id="myName" required>
+            <label for="Prenom">Prénom:</label>
+            <input type="text" name="Prenom" id="Prenom" required>
+            <label for="myEmail">E-mail:</label>
+            <input type="text" name="myEmail" id="myEmail"required>
+            <label for="phone">Téléphone:</label>
+            <input type="tel" name="phone" id="phone" maxlength="12" placeholder="012-345-6789" required>
+            <label for="eventType">Type d'évenement (optionnel):</label>
+            <input type="text" name="eventType" id="eventType"><br> <br>
+            <p>demande spéciale (optionnel): </p>
+            <textarea name="specialRequest" id="specialRequest" cols="40" rows="2" placeholder="Entrer votre deamnde spéciale ici!"></textarea> <br><br>
+            <div>
+                <p>Veuillez sélectionner votre zone de siège préférée :</p>
+                <input type="radio" id="indoor" name="seating_area" value="indoor" required>
+                <label for="indoor">Intérieur</label>
+                <input type="radio" id="outdoor" name="seating_area" value="outdoor">
+                <label for="outdoor">Térasse</label>
+                <input type="radio" id="bar" name="seating_area" value="bar">
+                <label for="bar">Bar</label>
+            </div>
+
+            <label for="nombrePersonnes">Nombres de personnes</label>
+            <input type="number" name="nombrePersonnes" id="nombrePersonnes">
+            <h3>date et heure de reservation:</h3>
+            <label for="Date">Date:</label>
+            <input type="date" name="Date" id="Date">
+            <label for="Heure">Heure:</label>
+            <input type="time" name="Heure" id="Heure">
+            <h3>Consentement: </h3>
+            <p>* En cochant cette case, vous confirmez avoir lu et accepté nos Termes et Conditions. 
+                Ces termes incluent notre politique de confidentialité, nos méthodes de traitement des 
+                réservations et d'autres informations importantes concernant l'utilisation de notre site 
+                et services. Nous vous encourageons à lire attentivement ces documents avant de procéde</p>
+            
+            <input type="checkbox" name="termCondition" id="termCondition" value="yes" required> Oui, J'accepte les Termes et Conditions. <br>
+            
+            <p>* En cocahnt cette case, vous consentez quèon puisse vous contactez concernant votre réservation.</p>
+            
+            <input type="checkbox" name="consent" id="consent" value="yes" required> Oui, j'accepte recevoir des communication concernant la réservation. <br>
+
+            <p>* Nous aimerions vous tenir informé(e) de nos offres spéciales, nouveautés et événements futurs. 
+                Si vous souhaitez recevoir ces informations, veuillez cocher la case ci-dessous. Vous pouvez vous 
+                désinscrire à tout moment en nous contactant ou en suivant le lien de désinscription dans nos communications. (optionnel) </p>
+
+            <input type="checkbox" name="marketingConsent" id="marketingConsent" checked> Oui, je souhaite recevoir des communications marketing par e-mail.
+            <br><br>
+
+            
+
+            <input type="submit" value="Envoyer la reservation">
+        </form>
+
+        <footer>
+            <div id="fNav">
+                <a href="home.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="design.html">Design</a>
+                <a href="booking.html">Reservation</a>
+                <a href="aPropos.html">À propos</a>
+            </div>
+            <div id="fLogo">
+                <img src="Images/LogoGOFi.png" alt="logo" >
+            </div>
+            <div id="fCopy">
+                <small> <i>Copyright &copy; 2023 Saphir Méditerranéen <br>
+                    <a href="mailto:contact@saphirmediterraneen.com">contact@saphirmediterraneen.com</a>
+                </i>  </small>
+            </div>
+            
+        </footer>
+    </body>
+
+</html>
