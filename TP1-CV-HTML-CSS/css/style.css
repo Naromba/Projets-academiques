@@ -1,0 +1,15 @@
+ol {
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-decoration: underline;
+    box-shadow: 4px 4px 4px rgb(8, 0, 14);
+}
+
+h2 {
+
+    font-weight: bold;
+    font-style: italic;
+
+}
