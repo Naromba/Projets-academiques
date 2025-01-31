@@ -1,0 +1,94 @@
+3             AFGHANISTAN               KABOUL         652225       29547078
+
+3         ARABIE SAOUDITE                RIYAD        1960582       23513330
+
+3                 ARMENIE               EREVAN          29800        3326448
+
+3             AZERBAIDJAN                 BAKU          86100        7830764
+
+3                 BAHREIN               MANAMA            707         645361
+
+3              BANGLADESH                DACCA         144000      133376684
+
+3                 BHOUTAN             THIMPHOU          47000        2094176
+
+3                  BRUNEI  BANDAR SERI BEGAWAN           5770         343653
+
+3                CAMBODGE           PHNOM PENH         181040       13124764
+
+3                   CHINE                PEKIN        9596960     1273111290
+
+3                 COMORES               MORONI           2170         596202
+
+3           COREE DU NORD            PYONGYANG         120540       21968228
+
+3            COREE DU SUD                SEOUL          99274       48324000
+
+3     EMIRATS ARABES UNIS           ABOU DHABI          82880        2407460
+
+3                 GEORGIE             TBILISSI          69700        4934413
+
+3               HONG-KONG             VICTORIA           1067        6000000
+
+3                    INDE            NEW DELHI        3287590     1029991145
+
+3               INDONESIE             DJAKARTA        1919440      228437870
+
+3                    IRAK               BAGDAD         437072       23331985
+
+3                    IRAN              TEHERAN        1648000       76000000
+
+3                   JAPON                TOKYO         377835       12761000
+
+3                JORDANIE                AMMAN          92300        5153378
+
+3              KAZAKHSTAN               ASTANA        2717300       16741519
+
+3            KIRGHIZISTAN              BICHLEK         198500        4753003
+
+3                  KOWEIT               KOWEIT          17820        2041961
+
+3                    LAOS            VIENTIANE         236800        5635967
+
+3                   LIBAN             BEYROUTH          10452        3727703
+
+3                MALAISIE         KUALA LAMPUR         329750       21793293
+
+3                MALDIVES                 MALE            298         329684
+
+3                MONGOLIE          OULAN-BATOR        1565000        2654999
+
+3                 MYANMAR              RANGOUN         678500       42510537
+
+3                   NEPAL            KATMANDOU         140800       25284463
+
+3                    OMAN              MASCATE         212460        2622198
+
+3             OUZBEKISTAN             TACHKENT         447400       25563441
+
+3                PAKISTAN            ISLAMABAD         803940      147663429
+
+3             PHILIPPINES              MANILLE         300000       86241697
+
+3                   QATAR                 DOHA          11437         769152
+
+3               SINGAPOUR            SINGAPORE            692        4608595
+
+3               SRI LANKA              COLOMBO          65610       19607519
+
+3                   SYRIE                DAMAS         185180       17585540
+
+3             TADJIKISTAN            DOUCHANBE         143000        6719567
+
+3                  TAIWAN               TAIPEI          36006       22000000
+
+3               THAILANDE              BANGKOK         514000       62354402
+
+3             TIMOR LESTE                 DILI          15007         952618
+
+3            TURKMENISTAN             ACHGABAT         488100        4603244
+
+3                 VIETNAM                HANOI         329560       81098416
+
+3                   YEMEN                SANAA         527970       19349881
+

@@ -1,0 +1,90 @@
+5                 ALBANIE               TIRANA          28748        3510484
+
+5               ALLEMAGNE               BERLIN         357027       82537000
+
+5                 ANDORRE     ANDORRA LA VELLA            468          67627
+
+5                AUTRICHE               VIENNE          83858        8150835
+
+5                 BELARUS                MINSK         207600       10350194
+
+5                BELGIQUE            BRUXELLES          32545       10309725
+
+5      BOSNIE-HERZEGOVINE             SARAJEVO          51129        3922205
+
+5                BULGARIE                SOFIA         110910        7707495
+
+5                  CHYPRE              NICOSIE           9250         771657
+
+5                 CROATIE               ZAGREB          56542        4390751
+
+5                DANEMARK           COPENHAGUE          43094        5413392
+
+5                 ESPAGNE               MADRID         504782       40037995
+
+5                 ESTONIE               TALINN          45226        1401945
+
+5                FINLANDE             HELSINKI         337030        5211311
+
+5                  FRANCE                PARIS         543964       61387038
+
+5                   GRECE              ATHENES         131940       10623835
+
+5                 HONGRIE             BUDAPEST          93030       10106017
+
+5                 IRLANDE               DUBLIN          70273        3917336
+
+5                 ISLANDE            REYKJAVIC         103125         288201
+
+5                  ISRAEL            JERUSALEM          20770        6116533
+
+5                  ITALIE                 ROME         301230       57715620
+
+5                LETTONIE                 RIGA          64589        2385231
+
+5           LIECHTENSTEIN                VADUZ            160          32528
+
+5                LITUANIE              VILNIUS          65200        3610535
+
+5              LUXEMBOURG           LUXEMBOURG           2586         442972
+
+5               MACEDOINE               SKOPJE          25713        2100000
+
+5                   MALTE           LA VALETTE            316         394583
+
+5                MOLDAVIE             CHISINAU          33843        4431570
+
+5                  MONACO               MONACO            195          31842
+
+5                 NORVEGE                 OSLO         324220        4525116
+
+5                PAYS-BAS            AMSTERDAM          41526       16135992
+
+5                 POLOGNE             VARSOVIE         312685       38633912
+
+5                PORTUGAL             LISBONNE          92391       10066253
+
+5      REPUBLIQUE TCHEQUE               PRAGUE          78866       10264212
+
+5                ROUMANIE             BUCAREST         238390       22272000
+
+5             ROYAUME-UNI              LONDRES         244101       58789194
+
+5                  RUSSIE               MOSCOU       17075400      143954573
+
+5             SAINT MARIN          SAINT MARIN             61          27336
+
+5    SERBIE ET MONTENEGRO             BELGRADE         102173       10660000
+
+5               SLOVAQUIE           BRATISLAVA          48845        5414937
+
+5                SLOVENIE            LJUBLJANA          20273        1930132
+
+5                   SUEDE            STOCKHOLM         449964        8875053
+
+5                  SUISSE                BERNE          41285        7261200
+
+5                 TURQUIE               ANKARA         780580       67308928
+
+5                 UKRAINE                 KIEV         603700       48396470
+
