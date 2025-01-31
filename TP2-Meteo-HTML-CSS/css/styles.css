@@ -1,0 +1,131 @@
+body {
+    background-color: #99BBDD;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#conteneur {
+    width: 920px;
+    background-color: #FFFFFF;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.meteo-header {
+    background-image: url("../images/nuages_708.jpg");
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    padding: 5px 0 15px 0;
+    margin: 0;
+}
+
+.meteo-header h1 {
+    color: rgb(249, 249, 6);
+    font-size: 60px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+nav {
+    background-color: rgb(249, 249, 6);
+    text-align: center;
+    padding: 2px 0 1px;
+}
+
+.menu-item td {
+    width: 33.33%;
+}
+
+.menu-item td a {
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 2px solid;
+}
+
+.menu-item a.active {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.menu-item a:hover {
+    border-bottom: none;
+    color: hsl(120, 100%, 25%);
+}
+
+.contenu {
+    padding: 0px 0px 5px 0;
+    margin-left: 10px;
+}
+
+main table {
+    width: 200px;
+    background-color: rgba(125, 125, 118, 0.339);
+    margin-left: 40px;
+}
+
+.liste-villes td a:link {
+    margin-left: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+.liste-villes  a:visited {
+    color: hsl(120, 100%, 25%);
+}
+.liste-villes  a:active {
+    color: #ff0000;
+    outline-color: orange;
+    background-color: #fff;
+}
+
+.liste-villes td a:hover {
+    color: rgb(249, 249, 6);
+    background-color: transparent;
+}
+
+.meteo-table {
+    width: 90%;
+    text-align: center;
+    background-color: #fff;
+    border: solid 1px #000;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.meteo-table td {
+    border-left: solid 1px #000;
+    border-bottom: solid 1px #000;
+}
+
+.meteo-table th {
+    border-right: solid 1px #fff;
+}
+
+
+.min {
+    color: rgb(23, 115, 220);
+}
+
+.max {
+    color: rgb(220, 23, 23)
+}
+
+.formulaire-table {
+    width: 100%;
+    background-color: #fff;
+    margin-left: 0;
+    margin-bottom: 40px;
+}
+
+.formulaire-table .label {
+    width: 20%;
+}
+
+
+footer table {
+    width: 100%;
+    background-color: rgba(52, 196, 236, 0.873);
+}
