@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP3</title>
+</head>
+
+<body>
+    <h1>Travail pratique #3</h1>
+    <h2>Identification</h2>
+    <p>Ce travail a été fait par Naromba Condé, Matricule: 20251772</p>
+    <h2>Partie 1: Formulaire de conversion(3pts)</h2>
+    <p>
+        <!-- <form method="post" action="http://www.iro.umontreal.ca/~pilona/cgi-bin/pilona.cgi" class="formulaire"> -->
+
+
+        <label for="valeur">Valeur :</label>
+        <input type="text" id="value" name="valeur">
+        <span id="res">Résultat ici </span> <br>
+
+        <!-- </form> -->
+        <br>
+        <button onclick="versCm()">Pouces vers cm</button>
+        <button onclick="versPouce()">Cm vers pouce</button>
+        <button onclick="versFarenheit()">Celcius vers farenheit</button>
+        <button onclick="versCelcius()">Farenheit vers celcius</button>
+
+    </p>
+    <script>
+        //creer une seule fonction a la place des 4 fonctions
+
+        function versCm() {
+            var cm = document.getElementById("value").value;
+            cm = cm * 2.5;
+            document.getElementById("res").innerHTML = "pouces ==> " + cm + "cm";
+        }
+        function versPouce() {
+            var P = document.getElementById("value").value;
+            p = P * 0.4;
+            var contenu = document.getElementById("res").innerHTML = "cm ==> " + p + " pouces";
+        }
+        function versFarenheit() {
+            var f = document.getElementById("value").value;
+            f = ((f * 1.8) + 32).toFixed(1);
+            var contenu = document.getElementById("res").innerHTML = "celcius ==> " + f + " farenheit";
+        }
+        function versCelcius() {
+            var c = document.getElementById("value").value;
+             c = ((c - 32) * 5 / 9).toFixed(1);
+            var contenu = document.getElementById("res").innerHTML = "farenheit ==> " + c + " celcius";
+
+        }
+
+    </script>
+
+    <h2>Partie 2: Affichage dans la page web (controlé par JavaScript-3pts)</h2>
+    <p >Nom:  <input type="textbox" id=NOM></p>
+    <p id="niveau">Niveau (1 à 6) <input type="textbox" id="value" name="valeur"> <button
+        onclick="affichage()">Afficher partie 2</button></p>
+<div id="aff">
+    Affichage ici
+</div>
+    <script>
+        function affichage(){
+             //doit regler le probleme de l affichage
+            var nom= document.getElementById("NOM").value;
+            document.getElementById("aff").innerHTML= "Bonjour"+ " "+ nom;
+        }
+    </script>
+</body>
+
+</html>

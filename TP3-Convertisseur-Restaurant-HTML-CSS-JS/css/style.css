@@ -1,0 +1,53 @@
+#menu {
+    width: 20%;
+    font-size: 2em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#affichage {
+    width: 75%;
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+#affichage h5 {
+    margin-top: 0;
+}
+
+#affichage .categorie {
+    width: 24%;
+    display: inline-block;
+    margin-top: 0px;
+    padding: 0px;
+}
+
+#menu ul ul {
+    display: none;
+    margin-left: 20px;
+}
+
+#menu ul {
+    display: block;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    background-color: #e5eecc;
+}
+
+#btnetres {
+    margin-left: 20%;
+    margin-top: 10px;
+}
+
+.choisir {
+    background-color: #d5ccee;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
