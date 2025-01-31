@@ -1,0 +1,47 @@
+# MEMBRES DU GROUPE
+# Naromba Conde»
+# Arthur Paul W.Lewis
+# Jeffson Saint-Louis
+# Jeudi 23 Novembre 2023
+
+# Description :  ce programme est un chargeur LMC
+# il Lit, incremente, stocke, charge et ex»cute les programmes utilisateur.
+ 
+	BR	load	
+# Zone m»moire de stockage des programmes utilisateurs
+
+prog	DAT	0
+	DAT	0
+	DAT	0
+	DAT	0
+	DAT	0
+
+# Code du chargeur
+load	LDA	prog	# Charger le programme utilisateur
+	IN		# Lire une valeur de l'entrée 
+	ADD	un	# Ajouter 1
+	BRZ	prog	# Si le résultat est z»ro, le programme utilisateur est chargé
+	SUB	un	# Soustraire 1
+
+STOCK	STO	prog	# Stocker la valeur dans le programme utilisateur
+
+	LDA	cpt	# Vérification du nombre d'entrées
+	ADD	un	# On rajoute un au compteur 
+	STO	cpt	# On stocke dans la variable cpt
+	SUB	t	# cpt - t
+	BRZ	prog	# si le résultat est 0, on arrête le programme
+
+	LDA	STOCK   # Charger la valeur depuis le programme utilisateur
+	ADD	un	# Ajouter 1
+	STO	STOCK	# Stocker le résultat dans le programme utilisateur
+	BR	load	# R»p»ter le processus de chargement
+
+		
+	
+END	BR	prog	# Aller au programme utilisateur
+	HLT		# arrêter l'exécution
+
+#Constantes et variables du chargeur
+un	DAT	1
+t	DAT	5
+cpt	DAT	0

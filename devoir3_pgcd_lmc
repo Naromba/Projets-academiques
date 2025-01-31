@@ -1,0 +1,41 @@
+# MEMBRES DU GROUPE
+# Naromba CondŽ
+# Arthur Paul W.Lewis
+# Jeffson Saint-Louis
+# Jeudi 23 Novembre 2023
+
+# Description : ce programme prend en entrée deux nombres 
+# et retourne leur PGCD
+ 
+	IN		   # RENTRER UNE VALEUR 	
+	STO	x          # STOCKER LA VALEUR DANS x 
+ 
+	IN	           # Entrer une valeur
+	STO	y      	   # STOCKER LA VALEUR DANS Y
+	BRZ	final	   # SI Y = 0 ON VA A final
+
+loop	LDA	x	   # ON CHARGE x
+	BRZ	final2	   # SI x = 0 ON VA A final2
+	SUB	y	   # SINON, ON A x - y
+	BRZ	final	   # SI x - y = 0, ON VA A final
+	BRP	positif	   # SI x - y >= 0, ON VA A positif
+
+	LDA	y	   # ON CHARGE y
+	SUB	x	   # ON APPLIQUE y - x
+	STO	y	   # ON STOCKE LE RESULTAT DANS y
+	BR	loop	   # ON RECOMMENCE
+
+positif	STO	x	   # ON STOCKE LE RESULTAT DANS x
+	BR	loop	   # ON RECOMMENCE
+
+final	LDA	x	   # ON CHARGE x
+	OUT		   # ON AFFICHE x
+	HLT		   # ON MET FIN AU PROGRAMME
+
+final2	LDA	y	   # ON CHARGE y
+	OUT		   # ON AFFICHE y 
+	HLT		   # ON MET FIN AU PROGRAMME
+
+# DECLARATION DES VARIABLES
+x	DAT	000
+y	DAT	000
