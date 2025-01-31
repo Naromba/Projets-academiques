@@ -1,0 +1,204 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}       % Encodage UTF-8
+\usepackage[T1]{fontenc}          % Encodage des caractères
+\usepackage[french]{babel}        % Langue française
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{listings}             % Pour inclure du code source
+\usepackage{xcolor}               % Pour la coloration syntaxique
+
+% Configuration de la coloration syntaxique pour le Haskell
+\lstdefinelanguage{Haskell}{
+  keywords={import, data, deriving, type, where, do, case, of, let, in, if, then, else, module, newtype, default, instance, class, family},
+  morecomment=[l]{--},
+  morecomment=[s]{\{-}{-\}},
+  morestring=[b]",
+  sensitive=true
+}
+
+\lstset{
+  language=Haskell,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{green!50!black},
+  breaklines=true,
+  showstringspaces=false,
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=5pt,
+  tabsize=2,
+  captionpos=b,
+  literate={é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1
+           {à}{{\`a}}1 {â}{{\^a}}1 {ä}{{\"a}}1 {ç}{{\c{c}}}1
+           {ô}{{\^o}}1 {ö}{{\"o}}1 {ù}{{\`u}}1 {û}{{\^u}}1
+           {ü}{{\"u}}1 {î}{{\^i}}1 {ï}{{\"i}}1 {œ}{{\oe}}1
+           {æ}{{\ae}}1 {É}{{\'E}}1 {È}{{\`E}}1 {Ê}{{\^E}}1
+           {Ë}{{\"E}}1 {À}{{\`A}}1 {Â}{{\^A}}1 {Ä}{{\"A}}1
+           {Ç}{{\c{C}}}1 {Ô}{{\^O}}1 {Ö}{{\"O}}1 {Ù}{{\`U}}1
+           {Û}{{\^U}}1 {Ü}{{\"U}}1 {Î}{{\^I}}1 {Ï}{{\"I}}1
+           {Œ}{{\OE}}1 {Æ}{{\AE}}1
+}
+
+% En-tête de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Rapport du TP2}
+\fancyfoot[C]{\thepage}
+
+% Ajuster la hauteur de l'en-tête pour éviter les avertissements
+\setlength{\headheight}{15pt}
+
+% Titre de la section
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+
+\begin{document}
+
+% Page de présentation
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    {\huge \textbf{Rapport du Travail Pratique 2}}\\
+    \vspace{0.5cm}
+    {\large IFT-2035}\\
+    \vspace{1.5cm}
+    {\large Nom des membres de l'équipe :}\\
+    \vspace{0.5cm}
+    {\large Naromba Condé    -    20251772}\\
+    {\large Qiyun Ou         -    20264284}\\
+
+    \vspace{2cm}
+    {\Large \textbf{Description du Devoir}}\\
+    \vspace{0.5cm}
+    {\large
+    Ce TP avait pour objectif de compléter et d'améliorer l'interpréteur de langage inspiré de Lisp développé au TP1. Nous avons :
+    \begin{itemize}
+        \item Ajouté un système de vérification des types pour valider les programmes avant leur exécution.
+        \item Étendu la gestion des fixations récursives (\texttt{fix}) pour prendre en charge des fonctions s'appelant mutuellement.
+        \item Finalisé les objets fonctionnels (\texttt{fob}) avec des paramètres typés.
+    \end{itemize}
+
+    Nous avons également ajouté des analyses pour signaler les erreurs de syntaxe et de type. Ce TP a renforcé notre compréhension des interpréteurs et de la programmation fonctionnelle en Haskell.
+    }
+    \vfill
+\end{titlepage}
+
+\section{Introduction et Compréhension des Exigences}
+
+Pour ce travail pratique, nous avons été amenés à mettre à jour les fonctionnalités dans notre interpréteur Lisp, notamment la gestion des fonctions objets (\texttt{fob}), des fixations récursives (\texttt{fix}) et l'implémentation d'un système de vérification des types.
+
+Contrairement au TP1, nous avons eu moins de mal à comprendre le squelette proposé pour ce TP2, car il s'agissait d'une continuité directe de celui utilisé pour le TP1, avec des modifications claires.
+
+Nous avons également tenté d'analyser la solution du professeur pour le TP1 afin de l'adapter aux exigences du TP2. Cependant, notre compréhension ne nous permettait pas de l'intégrer correctement, alors nous avons choisi de repartir sur nos propres fonctions \texttt{s2l}, que nous avons modifiées pour répondre aux nouvelles fonctionnalités demandées.
+
+\section{Problèmes Rencontrés et Solutions}
+
+\subsection{Problèmes avec les Tests Initiaux}
+
+Dès le début, nous avons rencontré des problèmes avec le fichier \texttt{test.slip} fourni. Certaines expressions étaient mal formées, ce qui a entraîné des échecs dans nos tests.
+
+\subsubsection{Exemple d'Erreur}
+
+\begin{lstlisting}[language=Haskell, caption={Erreur rencontrée lors de l'exécution de \texttt{run "test.slip"}}, label={lst:testError}]
+ghci> run "test.slip"
+*** Exception: Déclaration invalide dans 'fix' : ((even ((x Num)) ...))
+\end{lstlisting}
+
+\subsubsection{Analyse et Solution}
+
+Les erreurs n'étaient pas dues à notre implémentation, mais au fichier \texttt{test.slip} lui-même. Par exemple, certains types ou structures syntaxiques étaient incorrects. Après correction de ces erreurs, nos fonctions \texttt{s2l} et \texttt{eval} ont produit les résultats attendus.
+
+\subsection{Problèmes avec \texttt{s2l}}
+
+La fonction \texttt{s2l} a posé problème, surtout pour analyser les fixations récursives (\texttt{fix}).
+
+\subsubsection{Exemple d'Erreur}
+
+\begin{lstlisting}[language=Haskell, caption={Erreur rencontrée lors de l'utilisation de \texttt{s2l} avec \texttt{fix}}, label={lst:s2lFixError}]
+ghci> s2l (Snode (Ssym "fix") [declsNode, body])
+*** Exception: Déclaration invalide dans 'fix' : ((even ((x Num)) ...))
+\end{lstlisting}
+
+\subsubsection{Analyse et Solution}
+
+La fonction \texttt{s2l} ne gérait pas les cas où les paramètres et les corps de fonctions étaient imbriqués dans plusieurs \texttt{Snode}. Nous avons modifié la fonction \texttt{parseDecl} pour traiter ces cas :
+
+\begin{lstlisting}[language=Haskell, caption={Modification de la fonction \texttt{parseDecl}}, label={lst:parseDecl}]
+parseDecl se@(Snode (Snode (Ssym f) paramsAndBody) []) =
+    if length paramsAndBody >= 1 then
+        let body = last paramsAndBody
+            params = init paramsAndBody
+            parsedParams = map parseParam params
+        in (f, Lfob parsedParams (s2l body))
+    else
+        error ("Déclaration invalide dans 'fix' : " ++ showSexp se)
+\end{lstlisting}
+
+\subsection{Problèmes avec \texttt{parseParam}}
+
+Certains paramètres étaient écrits avec des parenthèses supplémentaires, ce qui perturbait notre fonction \texttt{parseParam}.
+
+\subsubsection{Exemple d'Erreur}
+
+\begin{lstlisting}[language=Haskell, caption={Erreur rencontrée lors de l'utilisation de \texttt{parseParam}}, label={lst:parseParamError}]
+*** Exception: Argument invalide dans la déclaration : ((x Num))
+\end{lstlisting}
+
+\subsubsection{Analyse et Solution}
+
+Nous avons ajouté un nouveau motif à \texttt{parseParam} pour gérer ces cas imbriqués :
+
+\begin{lstlisting}[language=Haskell, caption={Modification de la fonction \texttt{parseParam}}, label={lst:parseParam}]
+parseParam (Snode (Snode (Ssym x) [t]) []) | isType t =
+    (x, s2type t)
+\end{lstlisting}
+
+\subsection{Problèmes avec \texttt{l2d}}
+
+Lors de la conversion de \texttt{Lexp} en \texttt{Dexp}, des erreurs survenaient pour les indices dans l'environnement.
+
+\subsubsection{Exemple d'Erreur}
+
+\begin{lstlisting}[language=Haskell, caption={Erreur rencontrée lors de la conversion de \texttt{Lexp} en \texttt{Dexp}}, label={lst:l2dError}]
+ghci> l2d tenv0 (Lfob [("x", Tnum)] (Lsend (Lvar "+") [Lvar "x", Lbool True]))
+*** Exception: Type des arguments incompatibles dans l'appel de fonction
+\end{lstlisting}
+
+\subsubsection{Analyse et Solution}
+
+Nous avons introduit une passe initiale dans \texttt{check} pour inférer les types avant de valider les déclarations :
+
+\begin{lstlisting}[language=Haskell, caption={Modification dans \texttt{check}}, label={lst:checkModification}]
+let tenv' = zip vars (repeat (Terror "Type en cours de définition")) ++ tenv
+\end{lstlisting}
+
+\section{Choix de Programmation}
+
+Nous avons fait plusieurs choix pour assurer la lisibilité et la robustesse de notre code :
+
+\begin{itemize}
+    \item \textbf{Code Modulaire} : Les fonctionnalités principales ont été séparées en fonctions spécifiques (\texttt{parseDecl}, \texttt{parseParam}, etc.).
+    \item \textbf{Gestion des Cas} : Nous avons ajouté des motifs pour traiter toutes les possibilités dans les analyses.
+    \item \textbf{Utilisation des Traces} : La fonction \texttt{trace} a été employée pour analyser les différentes étapes d'exécution du programme et identifier les raisons pour lesquelles certaines parties du code ne se comportaient pas comme attendu.
+    \item \textbf{Tests} : Nous avons exécuté régulièrement nos tests pour valider chaque fonctionnalité.
+\end{itemize}
+
+\section{Sources}
+
+Pour réaliser ce projet, nous avons consulté plusieurs ressources essentielles :
+
+\begin{itemize}
+    \item \textbf{Forum de discussion du cours} : Une aide précieuse pour clarifier les exigences de l'énoncé, comprendre les concepts complexes et échanger sur les erreurs rencontrées avec d'autres étudiants.
+    \item \textbf{ChatGPT} : Utilisé pour obtenir des explications sur les erreurs complexes, et comprendre certaines exigences du devoir.
+    \item \textbf{Fichier de tests fourni pour le TP1} : Nous avons modifié ce fichier pour l'adapter aux exigences de l'énoncé du TP2, puis l'avons utilisé comme base pour valider les fonctionnalités et détecter les erreurs de notre interpréteur.
+\end{itemize}
+
+\section{Conclusion}
+
+Ce TP nous a permis de maîtriser les fixations récursives, les objets fonctionnels et la vérification des types en Haskell.
+
+\end{document}

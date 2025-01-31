@@ -1,0 +1,189 @@
+
+; Fichier de test pour le Travail pratique 2
+; Membres du groupe :
+;		Naromba Condé - 20251772
+;		Qiyun Ou - 	20264284
+
+;------------------        Tests correctement typés       ---------------------
+;------------------------------------------------------------------------------
+; EXEMPLE 1 : Utilisation de `let` avec annotation de type et  condition
+;------------------------------------------------------------------------------
+; Cette expression utilise deux `let` imbriqués pour définir des variables
+; locales `x` et `y`.
+; Ensuite, elle utilise une expression `if` pour comparer `y` et `x` et
+; effectuer des opérations arithmétiques en conséquence.
+
+	(let (x (: 5 Num))
+  	  (let (y (: 10 Num))
+    	    (if (> y x)
+              (* y (+ y x))
+              (/ y (- y x)))))
+
+; Détails :
+; - Définit 'x' en lui assignant 5 de type 'Num'
+; - Définit 'y' à lui assignant 10 de type 'Num'
+; - Si 'y' > 'x', calcule '(* y (+ y x))' qui est '10 * (10 + 5) = 150'
+; - Sinon, calcule '(/ y (- y x))' (non applicable ici car '10 > 5')
+; Résultat attendu : Left (Tnum,150)
+
+
+;-----------------------------------------------------------------------------
+; EXEMPLE 2 : Fonctions Imbriquées avec `fob`
+;-----------------------------------------------------------------------------
+; Cette expression crée deux objets fonctionnels imbriqués pour comparer deux
+; nombres `x` et `y`.
+
+(((fob ((x Num))
+       (fob ((y Num))
+            (: (if (< x y)
+                   (* x y)
+                   1)
+               Num)))
+ 8)
+7)
+
+
+; Détails :
+; - Le premier `fob` prend `x` et retourne un deuxième `fob`
+; - Le deuxième `fob` prend `y` et effectue une comparaison
+; - Le corps de la fonction est annoté avec le type `Num`
+; - Si `x` < `y`, retourne `(* x y)`
+; - Sinon, retourne `1`
+; - Appelle la fonction avec `x = 8` et `y = 7`
+; Résultat attendu : Left (Tnum,1)
+
+
+;------------------------------------------------------------------------------
+; EXEMPLE 3 : Somme de produits récursive avec `fix` et annotations de type
+;------------------------------------------------------------------------------
+
+; Cette expression définit une fonction `sommeProduit` qui calcule la somme des
+; produits de chaque entier de `n` à 1 avec un multiplicateur `m`.
+
+(fix (
+      ((sommeProduit (n Num) (m Num))
+                     (: (if (= n 0)
+                            0
+                            (+ (* n m) (sommeProduit (- n 1) m)))
+                        Num))
+      )
+     (sommeProduit 3 2))
+
+
+
+; Détails :
+; - Déclare `sommeProduit` prenant `n` et `m`
+; - Le corps de la fonction est annoté avec le type `Num`
+; - Si `n` est égal à 0, retourne 0
+; - Sinon, retourne `(* n m) + sommeProduit(n - 1, m)`
+; - Appelle `sommeProduit` avec `n = 3` et `m = 2`
+; Résultat attendu : Left (Tnum,12)
+
+
+
+
+;------------------------------------------------------------------------------
+; EXEMPLE 4 : Conversion de température avec `let` et annotations de type
+;------------------------------------------------------------------------------
+
+(let (c 25)
+  (let (f (: (+ (/ (* c 9) 5) 32) Num))
+    f))
+
+; Détails :
+; - Définit `c` à 25
+; - Calcule `f` avec une annotation de type `Num`
+; - Retourne `f`
+; Résultat attendu : Left (Tnum,77)
+
+
+;------------------------------------------------------------------------------
+; EXEMPLE 5 : Calcul du modulo avec `fix` et annotations de type
+;------------------------------------------------------------------------------
+
+; Cette expression définit une fonction récursive `modulo` pour calculer le
+; reste de la division entière
+; de `a` par `b`.
+; Elle utilise `fix` pour permettre la récursivité en utilisant la méthode des
+; soustractions répétées.
+
+
+(fix (
+      ((modulo (a Num) (b Num))
+             (: (if (< a b)
+                    a
+                    (modulo (- a b) b))
+                Num))
+      )
+     (modulo 10 3))
+
+; Détails :
+; - Déclare `modulo` prenant `a` et `b`
+; - Le corps de la fonction est annoté avec le type `Num`
+; - Si `a` < `b`, retourne `a`
+; - Sinon, retourne `modulo(a - b, b)`
+; - Appelle `modulo` avec les arguments `10` et `3`
+; Résultat attendu : Left (Tnum,1)
+
+
+;------------------    Tests refusés par le vérificateur de type     ----------
+;------------------------------------------------------------------------------
+; Exempple 1 : Liaison avec Type Incohérent dans `let`
+;------------------------------------------------------------------------------
+
+(let (x (: true Num))
+      x)
+
+; Erreur Attendue : Right "Terror \"Type attendu: Tnum, obtenue: Tbool\""
+; Explication : La variable 'x' est annotée avec le type 'Num' mais est
+; assignée à la valeur 'true' de type 'Bool'.
+
+;------------------------------------------------------------------------------
+; Exempple 2 : Déclaration de Fonction avec Type de Retour Incorrect
+;------------------------------------------------------------------------------
+
+(fix (
+      ((returnBool (n Num))
+            (: true Num))
+      )
+     (returnBool 5))
+; Erreur Attendue : Right "[Terror \"Erreur dans le corps de la fonction objet: 
+;Terror \\\"Type attendu: Tnum, obtenue: Tbool\\\"\"]"
+;La fonction 'returnBool' est annotée pour retourner un 'Num', mais retourne 
+;'true' de type 'Bool'.
+
+;------------------------------------------------------------------------------
+; Exempple 3 : Annotation Incorrecte d'un Nombre comme Booléen
+;------------------------------------------------------------------------------
+(: 42 Bool)
+
+; Erreur Attendue : Right "Type attendu: Tbool, obtenue: Tnum".
+; Explication : L'annotation de type spécifie 'Bool' mais la valeur est 
+;'42' de type 'Num'.
+
+
+;------------------------------------------------------------------------------
+; Exempple 4 : Annotation Incorrecte d'un Booléen comme Nombre
+;------------------------------------------------------------------------------
+(: true Num)
+; Erreur Attendue : Right "Type attendu: Tnum, obtenue: Tbool"
+; Explication : L'annotation de type spécifie 'Num' mais la valeur est 
+;'true' de type 'Bool'.
+
+
+;------------------------------------------------------------------------------
+; Exempple 5 : Branches de l'expression 'if' de types incompatibles
+;------------------------------------------------------------------------------
+
+    (if true 42 false)
+
+; Erreur Attendue : Right "Branches de types differentrents dans l'expression 
+;'if' : then est Tnum et else est Tbool.
+; Explication : Dans l'expression 'if', la branche 'then' retourne un entier 
+;(42) et la branche 'else' retourne un booléen (false). Les deux branches
+; branches doivent être du même type, ce qui n'est pas le cas ici.
+
+
+
+
+

@@ -1,0 +1,343 @@
+\documentclass{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}            %For \leadsto
+\usepackage{amsmath}             %For \text
+\usepackage{fancybox}            %For \ovalbox
+\usepackage{hyperref}
+\usepackage{color}
+
+\DeclareUnicodeCharacter{03BB}{\ensuremath{{\color{black}{\lambda}}}}
+
+\title{Travail pratique \#2}
+\author{IFT-2035}
+
+\begin{document}
+
+\maketitle
+
+\newcommand \mML {\ensuremath\mu\textsl{ML}}
+\newcommand \kw [1] {\textsf{#1}}
+\newcommand \id [1] {\textsl{#1}}
+\newcommand \punc [1] {\kw{`#1'}}
+\newcommand \str [1] {\texttt{"#1"}}
+\newenvironment{outitemize}{
+  \begin{itemize}
+  \let \origitem \item \def \item {\origitem[]\hspace{-18pt}}
+}{
+  \end{itemize}
+}
+\newcommand \MAlign [2][t] {\begin{array}[#1]{@{}l} #2 \end{array}}
+
+\section{Survol}
+
+Ce TP vise à améliorer la compréhension des types et de la portée statique
+en modifiant le code du travail précédent.  Les étapes de ce
+travail sont les suivantes:
+\begin{enumerate}
+\item Lire et comprendre cette donnée.  Cela prendra probablement une partie
+  importante du temps total.
+\item Lire, trouver, et comprendre les parties importantes du code fourni.
+\item Compléter et ajuster le code fourni.
+\item Écrire un rapport.  Il doit décrire \textbf{votre} expérience pendant
+  les points précédents: problèmes rencontrés, surprises, choix que vous
+  avez dû faire, options que vous avez sciemment rejetées, etc...  Le
+  rapport ne doit pas excéder 5 pages.
+\end{enumerate}
+
+Ce travail est à faire en groupes de deux.  Le rapport, au format
+\LaTeX\ exclusivement (compilable sur \texttt{ens.iro}) et le code sont
+à remettre par remise électronique avant la date indiquée.  Aucun retard ne
+sera accepté.  Indiquez clairement votre nom au début de chaque fichier.
+
+Ceux qui veulent faire ce travail seul(e)s doivent d'abord en obtenir
+l'autorisation, et l'évaluation de leur travail n'en tiendra pas compte.
+Des groupes de 3 ou plus sont \textbf{exclus}.
+
+\newpage
+\section{SSlip: Un Slip typé ssstatiquement}
+
+\begin{figure}
+  \begin{displaymath}
+    \begin{array}{r@{~}r@{~}l@{~~}l}
+      \tau &::=& \kw{Num} & \text{Type des nombres entiers} \\
+      &\mid& \kw{Bool} & \text{Type des booléens} \\
+      &\mid& (\tau_1~...~\tau_n \to \tau) & \text{Type d'une fonction}
+       \medskip \\
+      e &::=& n & \text{Un entier signé en décimal} \\
+      &\mid& x & \text{Une variable}  \\
+      &\mid& (:~e~\tau) & \text{Annotation de type}  \\
+      &\mid& (\kw{if}~e~e_{\kw{then}}~e_{\kw{else}}) &
+           \text{Expression conditionelle} \\
+      &\mid& (e_0~e_1~...~e_n) &
+           \text{Un appel de fonction} \\
+      &\mid& (\kw{fob}~((x_1~\tau_1)~...~(x_n~\tau_n))~e) & \text{Une fonction} \\
+      &\mid& (\kw{let}~x~e_1~e_2) &
+           \text{Déclaration locale simple} \\
+      &\mid& (\kw{fix}~(d_1~...~d_n)~e) &
+           \text{Déclarations locales récursives} \\
+      &\mid& + \mid - \mid * \mid / \mid ... &
+           \text{Opérations prédéfinies}
+       \medskip \\
+      d &::=& (x~e) & %% \mid ((x~x_1~...~x_n)~e)
+          \text{Déclaration de variable} \\
+      &\mid& (x~\tau~e) & %% \mid ((x~x_1~...~x_n)~e)
+          \text{Déclaration typée} \\
+      &\mid& ((x~(x_1~\tau_2)~...~(x_n~\tau_n))~e) &
+           \text{Déclaration de fonction} \\
+      &\mid& ((x~(x_1~\tau_2)~...~(x_n~\tau_n))~\tau~e) &
+           \text{Déclaration complète}
+    \end{array}
+  \end{displaymath}
+  \caption{Syntaxe de SSlip}
+  \label{fig:syntaxe}
+\end{figure}
+
+\noindent
+Vous allez travailler sur l'implantation d'une version de Slip avec typage
+statique.  La syntaxe de ce langage est décrite à la
+Figure~\ref{fig:syntaxe}.  Par rapport à Slip, les changements sont:
+\begin{itemize}
+\item l'ajout de la forme $(:~e~\tau)$ qui se comporte comme $e$ mais qui de
+  plus annonce que cette expression doit avoir le type $\tau$, ce qui sera
+  vérifié pendant la vérification des types.
+\item L'ajout de type qui accompagne dorénavant chaque argument de fonction.
+\item La possibilité d'ajouter une annotation de type aux déclarations.
+\end{itemize}
+La sémantique dynamique de SSlip est la même que celle de Slip, modulo le
+fait qu'il y a maintenant des annotations de types qu'il faut ignorer.
+
+\subsection{Sucre syntaxique}
+
+\noindent
+La première partie du travail est la même que celle du premier TP, qui est
+de transformer le code du format \id{Sexp} à \id{Lexp}.  Vous pourrez en
+grande partie reprendre votre code (ou celui du solutionnaire) pour ça, mais
+il faudra l'ajuster à la nouvelle syntaxe et au nouveau sucre syntaxique.
+Le sucre syntaxique de SSlip est similaire à celui de Slip, mais il
+y a maintenant plus de cas:
+\begin{displaymath}
+  \begin{array}{r@{\;\;\;\;\Longleftrightarrow\;\;\;\;}l}
+    (x~\tau~e) & (x~(:~e~\tau)) \\
+    ((x~\textsl{args...})~e) &
+        (x~(\kw{fob}~(\textsl{args...})~e)) \\
+    ((x~\textsl{args...})~\tau~e) &
+        (x~(\kw{fob}~(\textsl{args...})~(:~e~\tau)))
+  \end{array}
+\end{displaymath}
+
+\subsection{Sémantique statique}
+
+\newcommand \CheckKind [1] {\vdash #1}
+\newcommand \CheckType [2][\Gamma] {#1 \vdash #2 ~:~}
+\newcommand \InferType [2][\Gamma] {#1 \vdash #2 ~:~}
+\newcommand \BothType [2][\Gamma] {#1 \vdash #2 ~:~}
+\newcommand \Axiom [2] { \mbox{}\hspace{10pt}\nolinebreak\ensuremath{\displaystyle
+    \frac{#1}{#2}}\nolinebreak\hspace{10pt}\mbox{} \medskip}
+\newcommand \HA {\hspace{17pt}}
+\renewcommand \: {\!:\!}
+
+\begin{figure}
+  \begin{minipage}{\columnwidth}
+    \noindent \centering
+    \Axiom{}{\InferType{n}{\kw{Num}}}
+    \Axiom{\Gamma(x) = \tau}{\InferType{x}{\tau}}
+    \Axiom{\CheckType{e}{\tau}}
+          {\InferType{(\!\kw{:}~e~\tau)}{\tau}}
+    %% \Axiom{\InferType{e}{\tau}}
+    %%       {\CheckType{e}{\tau}}
+    \Axiom{\CheckType{e_1}{\kw{Bool}}
+           \HA \CheckType{e_2}{\tau}
+           \HA \CheckType{e_3}{\tau}}
+          {\CheckType{(\kw{if}~e_1~e_2~e_3)}{\tau}}
+    \Axiom{\InferType{e_0}{(\tau_1~...~\tau_n\to\tau_r)}
+           \HA
+           \forall i.\;\; \CheckType{e_i}{\tau_i}}
+          {\InferType{(e_0~e_1~...~e_n)}{\tau_r}}
+    \Axiom{\CheckType[\Gamma,x_1\:\tau_1,...,x_n\:\tau_n]{e}{\tau_r}}
+          {\CheckType{(\kw{fob}~((x_1~\tau_1)~...~(x_n~\tau_n))~e)}{(\tau_1~...~\tau_n\to\tau_r)}}
+    \Axiom{
+      \InferType{e_1} {\tau_1}
+      \HA
+      \InferType[\Gamma,x\:\tau_1]{e_2} {\tau_2}
+    }{
+      \InferType{(\kw{let}~x~e_1~e_2)} {\tau_2}
+    }
+    \Axiom{
+      \Gamma' = \Gamma,x_1\:\tau_1,...,x_n\:\tau_n \HA
+      \InferType[\Gamma']{e}{\tau}
+      \HA
+      \forall i. \;\; \InferType[\Gamma']{e_i}{\tau_i}
+    } {
+      \InferType{(\kw{fix}~((x_1~e_1)~...~(x_n~e_n))~e)} {\tau}
+    }
+    \mbox{}
+  \end{minipage}
+  \caption{Règles de typage de SSlip}
+  \label{fig:typing}
+\end{figure}
+
+Vu que SSlip est typé statiquement, il est accompagné de règles de typage,
+qui sont présentées à la Figure~\ref{fig:typing}.  Le jugement de typage
+s'écrit $\CheckType{e}{\tau}$ et se lit ``$e$ a type $\tau$ dans l'environnement
+$\Gamma$''.  $\Gamma$ contient le type de toutes les variables dont la portée couvre
+$e$, i.e.~il contient le type de toutes les variables auxquelles $e$ a le
+droit de faire référence.
+
+La deuxième partie du travail est d'implanter la vérification de types, donc
+de transformer ces règles en un morceau de code Haskell.  Un détail
+important pour cela est que le but fondamental de la vérification de types
+n'est pas de trouver le type d'une expression mais plutôt de trouver
+d'éventuelles erreurs de typage, donc il est important de
+\emph{tout} vérifier.
+
+La vérification de type est implantée par la fonction \id{check}:
+\begin{verbatim}
+  check :: Bool -> TEnv -> Lexp -> Type
+\end{verbatim}
+Cette fonction doit être totale: en cas d'erreur elle doit renvoyer un
+``type'' de la forme ``\id{Terror}~$s$'' où $s$ est une chaîne de caractères
+qui décrit l'erreur.  Le premier argument, un booléen, prend normalement la
+valeur \kw{True} et indique que la fonction doit bien vérifier que
+l'expression est typée correctement et renvoyer une erreur si ce n'est pas
+le cas.  Par contre si l'argument est \kw{False}, cela signifie que
+\id{check} peut présumer que l'expression est typée correctement et doit
+simplement trouver son type.
+
+Cet argument booléen est utilisé pour \kw{fix}.  Parmis les règles
+ci-dessus, la règle du \kw{fix} nécessite de ``deviner'' le type des $x_i$
+pour construire $\Gamma'$.  Par exemple avec un code source comme:
+\begin{displaymath}
+  (\MAlign{
+    \kw{fix}~((
+    \MAlign{(\id{fact}~(n~\kw{Num})) \\
+            ~~(\kw{if}~(>~n~0)~(*~n~(\id{fact}~(-~n~1)))~1)))} \\
+    ~~...)}
+\end{displaymath}
+Pour pouvoir vérifier les types dans le corps de la fonction, il faut
+connaître le type de \id{fact} dans l'environnement.  Mais les
+annotations de types ne nous donnent que le type de son argument et non
+celui de sa valeur de retour.  Cependant, on peut trouver le type de la
+valeur de retour de \id{fact} en consultant son code.
+
+Donc chaque expression $e_i$ de \kw{fix} sera d'abord passée à ``\id{check}
+\kw{False}'' (avec un environnement qui donne un type invalide aux nouvelles
+variables, vu qu'on ne connaît pas encore leur type), pour essayer de
+trouver justement le type de chaque $e_i$, de manière à ``deviner'' le $\Gamma'$
+qu'on utilise ensuite pour appeler \id{check} une deuxième fois pour chaque
+$e_i$, cette fois-ci avec l'argument \kw{True}.
+
+\section{Optimisation}
+
+La troisième partie du travail consiste à implanter une phase d'optimisation
+du code, qui transforme des expressions de type \id{Lexp} en \id{Dexp}.
+Cette optimisation fait deux changements:
+\begin{itemize}
+\item Effacement des types: après avoir vérifier les types, on a plus besoin
+  de cette information pour exécuter le code, donc on peut effacer toutes
+  les informations relatives aux types.
+\item De même la loi du renommage-$\alpha$ nous garanti que les noms de variables
+  n'affectent pas l'exécution, et on s'en débarrasse aussi, en les
+  remplaçant par des informations de position dans l'environnement, qu'on
+  appelle des \emph{index de De Bruijn}, du nom du mathématicien qui les
+  a inventés.
+\end{itemize}
+
+\subsection{Indexes de De Bruijn}
+
+En portée statique, l'environnement d'évaluation à un point du programme
+a toujours la même forme, avec les même variables placées dans le même ordre
+(d'ailleurs aussi les mêmes variables, dans le même ordre que dans le $\Gamma$
+utilisé lors de la vérification des types), et seules les valeurs de ces
+variables peu changer.  Donc au lieu de rechercher la variable par son nom
+à chaque fois, on peut remplacer le nom de la variable par sa position dans
+l'environnement, ce qui permet un accès beaucoup plus rapide où il n'est
+plus nécessaire de comparer des noms de variables.
+
+l'utilisation des indexes de De Bruijn élimine les noms de variables dans
+les déclarations et remplace les références par des nombres qui indiquent la
+position de la variable à laquelle on fait référence.  Concrètement, si on
+considère un $\lambda$-calcul simple, la syntaxe habituelle:
+\begin{displaymath}
+  e ::=  c ~|~ x ~|~ \lambda x \to e ~|~ e_1~e_2
+\end{displaymath}
+devient
+\begin{displaymath}
+  e ::=  c ~|~ \#n ~|~ \lambda \to e ~|~ e_1~e_2
+\end{displaymath}
+où $\lambda \to e$ est une fonction qui prend un argument anonyme, et $\#n$ est une
+référence à le $n$-ième variable de l'environnement (0 étant la variable la
+plus récente/proche).
+Une expression du $\lambda$-calcul comme:
+\begin{displaymath}
+  \lambda x \to \lambda y \to \kw{let}~z = x + y~\kw{in}~z + x
+\end{displaymath}
+devient:
+\begin{displaymath}
+  \lambda \to \lambda \to \kw{let}~\#1 + \#0~\kw{in}~\#0 + \#2
+\end{displaymath}
+On voit ici que les $\lambda$ ne portent plus le nom de leur argument (vu qu'il
+est maintenant anonyme), et de même pour le nom de la variable introduite
+par le \kw{let}.  La référence à $y$ a été remplacée par $\#0$ parce que,
+à ce point du code, l'environnement contient (par ordre de proximité) $y,
+x$ et donc $y$ est en position 0.  La référence à $z$ a aussi été remplacée
+par $\#0$ vu qu'à ce point du code l'environnement contient $z, y, x$ et
+donc $z$ est aussi en position 0.  La première référence à $x$ a été
+remplacée par $\#1$ vu qu'à cet endroit l'environnement contient $y,x$,
+alors que la deuxième est remplacée par $\#2$ vu qu'à cet endroit
+l'environnement contient $z,y,x$.
+
+\section{Travail}
+
+La donnée est similaire à celle du TP1 modifiée légèrement pour
+y inclure le squelette du TP2 (et changer un peu le format de sortie de
+\kw{run}), donc ce qu'il vous reste à faire est:
+\begin{itemize}
+\item \kw{s2l} pour accepter les nouveaux éléments de syntaxe.
+\item \kw{check} pour implémenter la vérification des types.
+\item \kw{l2d} pour convertir le code aux indexes de De Bruijn.
+\item \kw{eval} pour exécuter le code.
+\end{itemize}
+Pour \kw{s2l} et \kw{eval} je vous recommande de vous inspirer du
+solutionnaire du TP1.
+
+Vous devez aussi fournir un fichier \texttt{tests.sslip}, similaire au
+\texttt{tests.slip} du TP1 sauf qu'il doit contenir au moins 10 tests, dont
+au moins 5 qui sont typés correctement et au moins 5 qui sont \emph{refusés}
+par le vérificateur de type, avec une explication de l'erreur de type pour
+chacun des tests, Au moins 2 des tests dont le type est incorrect doivent
+contenir du code dont l'exécution par \kw{eval} n'échouerait \emph{pas}.
+
+\subsection{Remise}
+
+Pour la remise, vous devez remettre trois fichiers (\texttt{sslip.hs},
+\texttt{tests.sslip}, et \texttt{rapport.tex}) par la
+page Moodle (aussi nommé StudiUM) du cours.  Assurez-vous que le rapport
+compile correctement sur \texttt{ens.iro} (auquel vous pouvez vous connecter
+par SSH).
+
+\section{Détails}
+
+\begin{itemize}
+\item La note sera divisée comme suit: 25\% pour le rapport, 60\% pour le
+  code, et 15\% pour les tests.
+\item Tout usage de matériel (code ou texte) emprunté à quelqu'un d'autre
+  (trouvé sur le web, ...) doit être dûment mentionné, sans quoi cela sera
+  considéré comme du plagiat.
+\item Le code ne doit en aucun cas dépasser 80 colonnes.
+\item Vérifiez la page web du cours, pour d'éventuels errata, et d'autres
+  indications supplémentaires.
+\item La note est basée d'une part sur des tests automatiques, d'autre part
+  sur la lecture du code, ainsi que sur le rapport.  Le critère le plus
+  important, et que votre code doit se comporter de manière correcte.
+  Ensuite, vient la qualité du code: plus c'est simple, mieux c'est.
+  S'il y a beaucoup de commentaires, c'est généralement un symptôme que le
+  code n'est pas clair; mais bien sûr, sans commentaires le code (même
+  simple) est souvent incompréhensible.  L'efficacité de votre code est sans
+  importance, sauf si votre code utilise un algorithme vraiment
+  particulièrement inefficace.
+\end{itemize}
+
+\end{document}

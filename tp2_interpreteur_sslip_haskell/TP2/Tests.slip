@@ -1,0 +1,47 @@
+(fix ( ((fact (n Num)) (if (= n 0) 1 (* n (fact (- n 1))))) ) (fact 5))
+
+
+(fix (((fact (n Num)) 
+
+         (if (= n 0) 1 (* n (fact (- n 1))))))
+
+ (fact 6))
+
+
+(fix (((isEven (n Num)) 
+         (if (= n 0) true 
+             (isOdd (- n 1))))
+      ((isOdd (n Num)) 
+         (if (= n 0) false 
+             (isEven (- n 1)))))
+ (isEven 10)) 
+
+
+
+(fix ( ((fact (n Num)) (if (= n 0) 1 (* n (fact (- n 1))))) ) (fact 5))
+
+2                                       ; ↝ 2
++                                       ; ↝ <primitive>
+(+ 2 4)                                 ; ↝ 6
+
+((fob ((x Num)) x) 2)                   ; ↝ 2
+
+(((fob ((x Num)) (fob ((y Num)) (* x y)))
+  3)
+ 5)                                     ; ↝ 15
+
+(fix
+  (
+    ((isDiv3 (x Num)) Bool
+      (if (= x 0) true  (isNotDiv3 (- x 1))))
+    ((isNotDiv3 (x Num)) Bool
+      (if (= x 0) false (isDiv3 (- x 1)))))
+  (isDiv3 43))
+
+(fix 
+  (
+    ((even (x Num)) Bool (if (= x 0) true (odd (- x 1))))
+    ((odd (x Num)) Bool (if (= x 0) false (even (- x 1))))
+  )
+  (odd 42)
+)                                     ; ↝ False
