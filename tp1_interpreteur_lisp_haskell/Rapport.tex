@@ -1,0 +1,165 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}       % Encodage UTF-8
+\usepackage[T1]{fontenc}          % Encodage des caractères
+\usepackage[french]{babel}        % Langue française
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{listings}             % Pour inclure du code source
+\usepackage{xcolor}               % Pour la coloration syntaxique
+
+% Configuration de la coloration syntaxique pour le Haskell
+\lstdefinelanguage{Haskell}{
+  keywords={import, data, deriving, type, where, do, case, of, let, in, if, then, else, module, newtype, default, deriving, instance, class, where, type, data, family, instance},
+  morecomment=[l]{--},
+  morecomment=[s]{\{-}{-\}},
+  morestring=[b]",
+  sensitive=true
+}
+
+\lstset{
+  language=Haskell,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{green!50!black},
+  breaklines=true,
+  showstringspaces=false,
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=5pt,
+  tabsize=2,
+  captionpos=b
+}
+
+% En-tête de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Rapport du TP1}
+\fancyfoot[C]{\thepage}
+
+% Titre de la section
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+
+\begin{document}
+
+% Page de présentation
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    {\huge \textbf{Rapport du Travail Pratique 1}}\\
+    \vspace{0.5cm}
+    {\large IFT - 2035}\\
+    \vspace{1.5cm}
+    {\large Nom des membres de l'équipe :}\\
+    \vspace{0.5cm}
+    {\large Naromba Condé    -    20251772}\\
+    {\large Qiyun Ou         -    20264284}\\
+
+    \vspace{2cm}
+    {\Large \textbf{Description du Devoir}}\\
+    \vspace{0.5cm}
+    {\large Ce projet consiste en l'implémentation d'un langage de programmation de type Lisp. Le devoir consistait à implémenter les fonctions \texttt{s2l} et \texttt{eval}. Le langage doit prendre en charge les fonctionnalités suivantes :}\\
+    \begin{itemize}
+        \item Analyseur lexical pour traiter les entrées du langage.
+        \item Analyseur syntaxique pour valider la structure des programmes.
+        \item Mécanisme d'évaluation pour exécuter les programmes et retourner les résultats.
+    \end{itemize}
+    {\large Le travail inclut également la gestion des objets fonctionnels et des fixations récursives, permettant l'évaluation de fonctions mutuellement récursives.}\\
+    \vfill
+\end{titlepage}
+
+\section{Difficultés Rencontrées}
+
+Au cours de la réalisation de ce projet, nous avons rencontré plusieurs défis. On a passé du temps à lire et à comprendre le squelette du code fourni dans l'énoncé. Il était nécessaire de maîtriser le mécanisme des fonctions des types \texttt{Sexp} et \texttt{Lexp} pour réussir l'implémentation.
+
+\subsection{Difficultés avec les Objets Fonctionnels (\texttt{fob})}
+
+Lors de l'implémentation des objets fonctionnels, on a rencontré des erreurs à cause de la mauvaise traduction des expressions. Au début, nos expressions étaient mal traduites, et du coup, à l'exécution, on obtenait des \texttt{Lsend} au lieu de \texttt{Lfob}. Ça causait des soucis dans le traitement des paramètres et l'évaluation des fonctions.
+
+Pour déboguer tout ça, on a utilisé la notion de trace. On a dû ajouter \texttt{import Debug.Trace (trace, traceShow)} pour voir chaque étape de notre exécution. Grâce à ces traces, on a vu qu'il y avait un message d'erreur disant que la variable \texttt{x} n'était pas connue. On a réalisé que le problème venait de la façon dont on avait créé l'objet \texttt{fob} dans la fonction \texttt{s2l}. On n'avait pas pensé à tester \texttt{s2l} pour \texttt{fob} avant de l'intégrer à l'évaluateur.
+
+En nous basant sur les messages d'erreur obtenus lors du débogage, on a modifié la fonction \texttt{s2l} pour corriger la création des objets fonctionnels.
+
+\subsection{Difficultés avec la Gestion de \texttt{fix}}
+
+Lors de l'implémentation de \texttt{fix}, nous avons rencontré plusieurs difficultés.
+
+\subsubsection{Compréhension des Spécifications}
+
+Nous avons eu beaucoup de mal à comprendre les attentes pour la fonction \texttt{fix}, ce qui a rendu difficile la compréhension de la manière dont les fonctions mutuellement récursives devaient être définies et évaluées. Il a fallu plusieurs lectures de l'énoncé, du code fourni, ainsi que la lecture des réponses fournies par le professeur aux questions posées sur le forum de discussion pour comprendre.
+
+\subsubsection{Analyse des Déclarations}
+
+Il fallait analyser chaque déclaration de fonction et s'assurer qu'elles étaient correctement interprétées. Cependant, nous avons rencontré des difficultés à extraire les noms des fonctions et leurs paramètres à partir des nœuds \texttt{Snode}. Les erreurs de pattern matching sont apparues, notamment en raison d'une mauvaise compréhension de la structure des \texttt{Sexp}.
+
+\subsubsection{Erreurs de Traduction}
+
+Au début, nos expressions \texttt{fix} étaient mal traduites, ce qui faisait que, lors de l'exécution, on obtenait des \texttt{Lsend} au lieu de \texttt{Lfob}. Cela entraînait une mauvaise interprétation des appels récursifs et une évaluation incorrecte des résultats.
+
+\subsubsection{Débogage de la Fonction \texttt{s2l}}
+
+En tentant d'intégrer \texttt{fix} dans la fonction \texttt{s2l}, nous avons réalisé que le traitement des déclarations n'était pas adéquat. Nos premières tentatives ont souvent conduit à des résultats inattendus, tels que des évaluations incorrectes ou des références à des fonctions non définies. Par exemple, les appels de fonctions mutuellement récursives dans le corps de \texttt{fix} n'étaient pas gérés correctement.
+
+En analysant les expressions simples pour \texttt{fix}, nous avons pu constater que la récursivité mutuelle entre \texttt{even} et \texttt{odd} fonctionnait correctement, avec l'environnement contenant bien les deux fonctions. Cependant, notre code ne semblait pas fonctionner pour l'expression \texttt{fix} que le professeur a donnée dans le fichier \texttt{exemple.slip}.
+
+Pour illustrer ce problème, voici un exemple d'erreur que nous avons eu pour \texttt{fix} :
+
+\begin{lstlisting}[language=Haskell, caption={Erreur rencontrée lors de l'utilisation de \texttt{fix}}, label={lst:fixError}]
+ghci> readSexp "(fix (((even x)  (if (= x 0) true  (odd  (- x 1)))) ((odd x)   (if (= x 0) false (even (- x 1))))) (odd 42))"
+Snode (Ssym "fix") [Snode (Snode (Snode (Ssym "even") [Ssym "x"]) [Snode (Ssym "if") [Snode (Ssym "=") [Ssym "x",Snum 0],Ssym "true",Snode (Ssym "odd") [Snode (Ssym "-") [Ssym "x",Snum 1]]]]) [Snode (Snode (Ssym "odd") [Ssym "x"]) [Snode (Ssym "if") [Snode (Ssym "=") [Ssym "x",Snum 0],Ssym "false",Snode (Ssym "even") [Snode (Ssym "-") [Ssym "x",Snum 1]]]]],Snode (Ssym "odd") [Snum 42]]
+ghci> s2l (Snode (Ssym "fix") [Snode (Snode (Snode (Ssym "even") [Ssym "x"]) [Snode (Ssym "if") [Snode (Ssym "=") [Ssym "x",Snum 0],Ssym "true",Snode (Ssym "odd") [Snode (Ssym "-") [Ssym "x",Snum 1]]]]) [Snode (Snode (Ssym "odd") [Ssym "x"]) [Snode (Ssym "if") [Snode (Ssym "=") [Ssym "x",Snum 0],Ssym "false",Snode (Ssym "even") [Snode (Ssym "-") [Ssym "x",Snum 1]]]]],Snode (Ssym "odd") [Snum 42]])
+Lfix [] (Lsend (Lvar "odd") [Lnum 42])
+ghci>
+\end{lstlisting}
+
+Nous nous sommes rendu compte qu'à la fin de l'exécution, on se retrouvait avec une liste vide pour les déclarations dans \texttt{fix} (le premier argument de \texttt{Lfix} est \texttt{[]}).
+
+Ce problème provenait du fait que notre fonction \texttt{s2l} ne gérait pas correctement la structure des \texttt{Sexp} lors de l'analyse des déclarations dans \texttt{fix}. Plus précisément, les déclarations étaient encapsulées dans des nœuds supplémentaires, ce qui empêchait leur extraction correcte.
+
+En constatant ça, nous avons ajusté la fonction \texttt{s2l} pour gérer correctement les \texttt{Sexp} encapsulés et extraire les déclarations même lorsqu'elles sont enveloppées dans des nœuds supplémentaires.
+
+Après cette modification, la fonction \texttt{s2l} a pu analyser correctement les déclarations dans \texttt{fix}, ce qui a permis de remplir la liste des déclarations dans \texttt{Lfix} et d'évaluer correctement les fonctions mutuellement récursives.
+
+
+\subsubsection{Tests et Validation}
+
+La validation des résultats a également nécessité plusieurs tests. Nous avons d'abord utilisé des exemples simples de déclarations de fonctions pour vérifier que l'implémentation de \texttt{fix} fonctionnait comme prévu, puis nous avons finalement testé notre code sur les exemples fournis par le professeur dans le fichier exemples.slip . 
+
+\section{Choix de Programmation}
+
+Nos choix de programmation ont été guidés par le besoin d'avoir un code propre. J'ai choisi une approche plus structurée, où chaque partie du langage est gérée par des fonctions séparées, ce qui facilite le débogage et la maintenance.
+
+Voici les choix de programmation que j'ai utilisés :
+
+\begin{itemize}
+    \item \textbf{Création de fonctions auxiliaires} : Nous avons créé des fonctions comme \texttt{sexpToList}, \texttt{parseParamsFromSexp} et \texttt{parseDecl} pour gérer des tâches spécifiques, comme convertir un \texttt{Sexp} en liste ou extraire les paramètres et déclarations. Ça a simplifié le code principal et l'a rendu plus lisible.
+
+    \item \textbf{Approche structurée} : En séparant les différentes fonctionnalités du langage en fonctions distinctes, le code est devenu plus organisé. Chaque composant, comme l'analyse syntaxique ou l'évaluation des expressions, est traité indépendamment, ce qui facilite les modifications et les ajouts futurs.
+
+    \item \textbf{Utilisation d'outils de débogage} : On a utilisé les fonctions \texttt{trace} et \texttt{traceShow} du module \texttt{Debug.Trace} pour suivre l'exécution du programme pas à pas. Ça nous a aidé à identifier et corriger les erreurs plus efficacement en visualisant le flux d'exécution et les valeurs intermédiaires.
+
+    \item \textbf{Amélioration de la fonction \texttt{s2l}} : Nous avons ajusté la fonction \texttt{s2l} pour qu'elle gère correctement les différentes structures de \texttt{Sexp}, surtout pour les expressions \texttt{fix} et \texttt{fob}. Ça a nécessité de bien comprendre les structures de données et de gérer les cas particuliers où les expressions sont encapsulées dans des nœuds supplémentaires.
+
+    \item \textbf{Gestion des environnements pour la récursivité} : Pour permettre aux fonctions de se référencer mutuellement lors de leur évaluation, on a mis en place un environnement récursif. Ça a impliqué d'adapter la fonction \texttt{eval} pour gérer correctement cet environnement, notamment lors de l'évaluation des fixations récursives avec \texttt{fix}.
+
+    \item \textbf{Tests et validations réguliers} : Nous avons fait des tests avec des exemples simples et ceux fournis par le professeur pour valider le fonctionnement de l'implémentation. Chaque test a aidé à identifier des problèmes supplémentaires et à améliorer le code.
+\end{itemize}
+
+Ces choix ont aidé à créer un interpréteur plus robuste et maintenable, tout en facilitant le développement et le débogage.
+
+\subsection{Débogage et Tests}
+
+Le processus de débogage a été important et on a passé une bonne partie de temps à identifier et corriger les erreurs. Nous avons utilisé des messages d'erreur explicites pour s'assurer que chaque étape du processus d'analyse et d'évaluation était claire. 
+
+\section{Sources}
+
+Dans la réalisation de ce projet, nous avons utilisé de nombreux moteurs de recherche pour nous aider à comprendre et implémenter les différentes fonctionnalités du langage Lisp simplifié. Notamment, nous avons utilisé ChatGPT pour nous assister dans la compréhension des exigences de l'énoncé, en particulier pour la gestion de `fix` dans `s2l`.
+
+Nous avons également consulté la documentation officielle de Haskell, le forums de discussion du cours sur StudiuM et divers tutoriels en ligne pour approfondir notre compréhension des concepts de programmation fonctionnelle et des mécanismes de récursivité.
+
+
+\end{document}

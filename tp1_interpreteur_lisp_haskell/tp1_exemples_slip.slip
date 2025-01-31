@@ -1,0 +1,240 @@
+
+
+; Fichier de test pour le Travail pratique 1
+; Membres du groupe :
+;		Naromba Condé - 20251772
+;		Qiyun Ou - 	20264284
+
+;------------------------------------------------------------------------------
+; EXEMPLE 1 : Utilisation de `let` pour des variables locales et une condition
+;------------------------------------------------------------------------------
+; Cette expression utilise deux `let` imbriqués pour définir des variables
+; locales `x` et `y`.
+; Ensuite, elle utilise une expression `if` pour comparer `y` et `x` et
+; effectuer des opérations arithmétiques en conséquence.
+
+
+ (let (x 5)
+    (let (y 10)
+        (if (> y x)
+            (* y (+ y x))
+            (/ y (- y x)))))
+
+
+; Détails :
+; - Définit `x` à 5
+; - Définit `y` à 10
+; - Si `y` > `x`, calcule `(* y (+ y x))` qui est `10 * (10 + 5) = 150`
+; - Sinon, calcule `(/ y (- y x))` (non applicable ici car `10 > 5`)
+; Résultat attendu : 150
+
+
+;------------------------------------------------------------------------------
+; EXEMPLE 2 : Utilisation de `let` pour des variables locales et une condition
+;------------------------------------------------------------------------------
+; Cette expression définit une fonction récursive `fact` pour calculer la
+; factorielle d'un nombre.
+; Elle utilise `fix` pour permettre la récursivité et `fob` pour définir
+; la fonction.
+
+
+(fix ((fact (fob (n)
+              (if (= n 0)
+                  1
+                  (* n (fact (- n 1)))))))
+      (fact 8))
+
+
+; Détails :
+; - Déclare `fact` comme une fonction prenant `n`
+; - Si `n` est égal à 0, retourne 1
+; - Sinon, retourne `n * fact(n - 1)`
+; - Appelle `fact` avec l'argument 8
+; Résultat attendu : 40320 (car 8! = 40320)
+
+;-----------------------------------------------------------------------------
+; EXEMPLE 3 : Fonctions Imbriquées avec `fob`
+;-----------------------------------------------------------------------------
+; Cette expression crée deux objets fonctionnels imbriqués pour comparer deux
+; nombres `x` et `y`.
+
+
+(((fob (x)
+       (fob (y)
+            (if (< x y)
+                (* x y)
+                1)))
+  8)
+ 7)
+
+; Détails :
+; - Le premier `fob` prend `x` et retourne un deuxième `fob`
+; - Le deuxième `fob` prend `y` et effectue une comparaison
+; - Si `x` < `y`, retourne `(* x y)`
+; - Sinon, retourne `1`
+; - Appelle la fonction avec `x = 8` et `y = 7`
+;
+; Résultat attendu : 1 (car 8 n'est pas inférieur à 7)
+
+;------------------------------------------------------------------------------
+; EXEMPLE 4 : Calcul la somme d'un produit récursivement  avec `fix`
+;------------------------------------------------------------------------------
+; Cette expression définit une fonction `sommeProduit` qui calcule la somme des
+; produits de chaque entier de `n` à 1 avec un multiplicateur `m`.
+
+(fix (
+        ((sommeProduit n m)
+         (if (= n 0)
+             0
+             (+ (* n m) (sommeProduit (- n 1) m))))
+      )
+      (sommeProduit 3 2)
+)
+
+; Détails :
+; - Déclare `sommeProduit` prenant `n` et `m`
+; - Si `n` est égal à 0, retourne 0
+; - Sinon, retourne `(* n m) + sommeProduit(n - 1, m)`
+; - Appelle `sommeProduit` avec `n = 3` et `m = 2`
+
+; Calcul :
+; sommeProduit(3, 2) = 3*2 + sommeProduit(2, 2)
+; sommeProduit(2, 2) = 2*2 + sommeProduit(1, 2)
+; sommeProduit(1, 2) = 1*2 + sommeProduit(0, 2)
+; sommeProduit(0, 2) = 0
+
+; Résultat attendu : (3*2) + (2*2) + (1*2) + 0 = 6 + 4 + 2 + 0 = 12
+
+;------------------------------------------------------------------------------
+; EXEMPLE 5 : Calcul des Nombres de Fibonacci avec `fix`
+;------------------------------------------------------------------------------
+; Cette expression définit une fonction `fib` pour calculer le `n`-ème nombre
+; de Fibonacci.
+
+(fix (
+        ((fib n)
+         (if (< n 2)
+             n
+             (+ (fib (- n 1))
+                (fib (- n 2)))))
+      )
+      (fib 7)
+)
+
+
+; Détails :
+; - Déclare `fib` prenant `n`
+; - Si `n` < 2, retourne `n`
+; - Sinon, retourne `fib(n - 1) + fib(n - 2)`
+; - Appelle `fib` avec l'argument 7
+;
+; Calcul :
+; fib(7) = fib(6) + fib(5)
+; fib(6) = fib(5) + fib(4)
+; fib(5) = fib(4) + fib(3)
+; fib(4) = fib(3) + fib(2)
+; fib(3) = fib(2) + fib(1)
+; fib(2) = fib(1) + fib(0)
+; fib(1) = 1
+; fib(0) = 0
+;
+; Résultat attendu : 13 (séquence de Fibonacci : 0, 1, 1, 2, 3, 5, 8, 13)
+
+;------------------------------------------------------------------------------
+; EXEMPLE 6 : Calcul du PGCD (Plus Grand Commun Diviseur) avec `fix`
+;------------------------------------------------------------------------------
+; Cette expression définit une fonction récursive `pgcd` pour calculer le PGCD
+; de deux nombres `a` et `b`.
+; Elle utilise `fix` pour permettre la récursivité.
+
+(fix (
+        ((pgcd a b)
+         (if (= b 0)
+             a
+             (if (> a b)
+                 (pgcd (- a b) b)
+                 (pgcd a (- b a))))))
+      (pgcd 48 18)
+)
+
+; Détails :
+; - Déclare `pgcd` comme une fonction prenant `a` et `b`
+; - Si `b` est égal à 0, retourne `a`
+; - Sinon, compare `a` et `b` :
+;   - Si `a` > `b`, appelle `pgcd(a - b, b)`
+;   - Sinon, appelle `pgcd(a, b - a)`
+; - Appelle `pgcd` avec les arguments `48` et `18`
+;
+; Calcul :
+; pgcd(48, 18) :
+; - 48 > 18 => 	pgcd(48 - 18, 18) = pgcd(30, 18)
+; - 30 > 18 => 	pgcd(30 - 18, 18) = pgcd(12, 18)
+; - 12 < 18 => 	pgcd(12, 18 - 12) = pgcd(12, 6)
+; - 12 > 6  => 	pgcd(12 - 6, 6)   = pgcd(6, 6)
+; - 6 = 6   => 	pgcd(6, 6 - 6)    = pgcd(6, 0)
+; - pgcd(6, 0) = 6
+;
+; Résultat attendu : 6
+
+; ---------------------------------------------------------------------------
+; Exemple 7 : Calcul du Modulo avec `fix` et `fob`
+; ---------------------------------------------------------------------------
+; Cette expression définit une fonction récursive `modulo` pour calculer le
+; reste de la division entière
+; de `a` par `b`.
+; Elle utilise `fix` pour permettre la récursivité en utilisant la méthode des
+; soustractions répétées.
+
+
+(fix (
+        ((modulo a b)
+         (if (< a b)
+             a
+             (modulo (- a b) b))))
+      (modulo 10 3)
+)
+
+; Détails :
+; - Déclare `modulo` comme une fonction prenant `a` et `b`
+; - Si `a` est inférieur à `b`, retourne `a`
+; - Sinon, retourne `modulo(a - b, b)`
+; - Appelle `modulo` avec les arguments `10` et `3`
+;
+; Calcul :
+; modulo(10, 3) :
+; - 10 ≥ 3 → modulo(10 - 3, 3) = modulo(7, 3)
+; - 7 ≥ 3 → modulo(7 - 3, 3) = modulo(4, 3)
+; - 4 ≥ 3 → modulo(4 - 3, 3) = modulo(1, 3)
+; - 1 < 3 → retourne 1
+;
+; Résultat attendu : 1
+
+; ---------------------------------------------------------------------------
+; Exemple 8 : Conversion de Température (Celsius en Fahrenheit) avec `let`
+; ---------------------------------------------------------------------------
+; Cette expression utilise `let` pour définir une variable locale `c`
+; représentant la température en Celsius.
+; Ensuite, elle calcule la température en Fahrenheit en utilisant la formule
+; `F = (c * 9 / 5) + 32`.
+
+
+(let (c 25)
+    (let (f (+ (/ (* c 9) 5) 32))
+        f))
+
+
+; Détails :
+; - Définit `c` à 25
+; - Calcule `f` en multipliant `c` par 9, divisant par 5, puis ajoutant 32
+; - Retourne `f`
+;
+; Calcul pour `c = 25` :
+; - (* 25 9) = 225
+; - (/ 225 5) = 45
+; - (+ 45 32) = 77
+;
+; Résultat attendu : 77
+
+
+
+
