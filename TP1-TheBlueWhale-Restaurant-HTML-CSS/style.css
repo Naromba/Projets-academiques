@@ -1,0 +1,339 @@
+header {
+    border: 2px;
+    height: auto;
+    background-color: rgba(216, 212, 212, 0.144);
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    float: left;
+}
+
+nav {
+    vertical-align: middle;
+    padding-left: 13%;
+    padding-top: 70px;
+}
+
+nav a {
+    text-decoration: none;
+    padding-left: 10px;
+    border: 1px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #555252;
+}
+
+nav a:visited {
+    color: rgba(88, 88, 202, 0.664);
+}
+
+nav a:hover {
+    color: rgb(46, 45, 43);
+    background-color: rgba(214, 211, 211, 0.301);
+    border-radius: 4px;
+}
+
+header hr {
+    margin-top: 70px;
+    border-width: 2px;
+}
+
+body {
+    background-color: #e9e7e7d0;
+}
+
+main {
+    margin-top: 5%;
+    position: static;
+}
+
+#mainText {
+    padding-top: 10px;
+    margin-left: 10%;
+    margin-top: 5%;
+    line-height: 60%;
+    font-family: "Brush Script MT, Brush Script Std, cursive";
+    font-size: xx-large;
+    position: relative;
+}
+
+.buttonMenu {
+    padding-left: 70px;
+    width: 100px;
+    height: 80px;
+}
+
+.img1 {
+    border: 1px;
+    width: 50%;
+    height: 60%;
+    margin-top: -280px;
+    margin-left: 46%;
+    position: absolute;
+    border-radius: 20px;
+}
+
+#presentation {
+
+    margin-top: 2%;
+    margin-left: 2%;
+    position: static;
+}
+
+#presentation p {
+    border: 1px;
+    margin-top: 2%;
+    float: left;
+    width: 40%;
+    height: 30%;
+    font-family: script, cursive;
+    font-size: x-large;
+    color: #555252;
+    position: relative;
+}
+
+.img2 {
+    border: 1px;
+    width: 25%;
+    height: 60%;
+    margin-left: -38%;
+    margin-top: 15%;
+    position: static;
+    border-radius: 20px;
+}
+
+#presentation2 {
+    border: 1px;
+    float: right;
+    width: 50%;
+    height: 30%;
+    margin-top: -25%;
+    margin-left: 40%;
+    font-family: script, cursive;
+    float: right;
+    font-size: x-large;
+    color: #555252;
+    position: absolute;
+
+}
+
+.buttonGalerie {
+
+    width: 170px;
+    height: 50px;
+    padding-left: 38%;
+    align-items: center;
+}
+
+footer {
+    margin-top: 5%;
+    position: static;
+    background-color: rgba(216, 212, 212, 0.144);
+
+}
+
+.footerMenu {
+    margin-top: 5%;
+    position: static;
+    background-color: rgba(216, 212, 212, 0.205);
+}
+
+footer #auteurs {
+    position: static;
+    margin-top: 2%;
+    margin-left: 2%;
+    line-height: 140%;
+}
+
+#navigationF {
+    float: right;
+    margin-top: -8%;
+    margin-right: 2%;
+    line-height: 140%;
+}
+
+footer #copyright {
+    margin-top: 2%;
+    text-align: center;
+    position: static;
+
+}
+
+.aProposTitre {
+
+    border: 1px;
+    width: 35%;
+    height: 20px;
+    padding-left: 30px;
+    padding-right: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: script, cursive;
+    color: rgb(43, 137, 226);
+    text-shadow: 1px 1px #555252;
+}
+
+#notreHistoire {
+    border: 1px;
+    width: 35%;
+    height: auto;
+    padding-left: 30px;
+    padding-right: 60px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    text-align: justify;
+    text-justify: inter-word;
+    font-family: script, cursive;
+}
+
+#exterior1 {
+    width: 50%;
+    height: auto;
+    float: right;
+    margin-top: -40%;
+    margin-right: 2%;
+}
+
+#exterior1 img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3%;
+}
+
+.listApropos {
+    border: 1px;
+    width: 35%;
+    height: auto;
+    padding-left: 60px;
+    padding-right: 30px;
+    text-align: justify;
+    text-justify: inter-word;
+    font-family: script, cursive;
+    list-style-type: disc;
+}
+
+
+section {
+    max-width: 50%;
+    text-align: left;
+}
+
+.menu-elem {
+    border: 4px solid rgb(188, 184, 184);
+    border-radius: 10%;
+    float: left;
+    width: 21%;
+    height: 250px;
+    margin: 0.8%;
+    padding: 0.8%;
+    background-color: #F0F0F0;
+    margin-bottom: 5%;
+}
+
+.menu-elem img {
+    border-radius: 25%;
+    float: right;
+    width: 35%;
+    height: auto;
+    margin-right: 0.8%;
+
+
+}
+
+.titre1 {
+    font-family: script, cursive;
+    font-size: 400%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.titre {
+    font-family: script, cursive;
+    font-weight: bold;
+    font-size: 175%;
+
+}
+
+.imagesGalerie {
+    width: 120px;
+    height: 150px;
+    border: 4px solid rgb(188, 184, 184);
+    border-radius: 30%;
+    margin-right: 30px;
+    margin-bottom: 2%;
+    float: left;
+    max-width: 100%;
+    display: block;
+
+}
+
+
+.listeM {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li p {
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+.contact {
+    text-align: center;
+    padding: 20px;
+
+}
+
+.contact p {
+    font-size: 18px;
+    margin: 20px 0;
+
+}
+
+textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+}
+
+.envoyer {
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+
+
+}
+
+.pieddepage {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+#gal {
+    margin-top: 18%;
+    position: static;
+    background-color: rgba(216, 212, 212, 0.144);
+
+}
+
+.svg {
+    float: right;
+}
+
+#footer {
+    margin-top: 9%;
+}
+
+#foot {
+    margin-top: 11%;
+}
