@@ -46,4 +46,4 @@ Pour toute question ou opportunité, vous pouvez me contacter via :
 
 Email : naromba51@gmail.com
         naromba.conde@umontreal.ca
-LinkedIn : Naromba Condé
+LinkedIn : www.linkedin.com/in/naromba-condé-74a8a7235
